@@ -1,73 +1,64 @@
-// script.js
+const apiUrl = 'http://localhost:3000';
 
-// Função para consultar o cliente pelo ID
-async function consultarCliente(event) {
-    event.preventDefault(); // Previne o recarregamento da página ao enviar o formulário
-
-    const idCliente = document.getElementById('idConsulta').value; // Pega o valor do ID do input
-
-    try {
-        const response = await fetch(`http://localhost:3000/clientes/${idCliente}`); // Faz a requisição para o backend
-
-        if (response.ok) {
-            const cliente = await response.json(); // Converte a resposta para JSON
-            mostrarDadosCliente(cliente); // Exibe os dados do cliente
-        } else {
-            mostrarDadosCliente({ mensagem: 'Cliente não encontrado' });
-        }
-    } catch (error) {
-        console.error('Erro ao consultar cliente:', error);
-        mostrarDadosCliente({ mensagem: 'Erro ao consultar cliente' });
-    }
-}
-
-// Função para exibir os dados do cliente na página
-function mostrarDadosCliente(dados) {
-    const dadosClienteDiv = document.getElementById('dadosCliente');
-    dadosClienteDiv.innerHTML = '';
-
-    if (dados.mensagem) {
-        dadosClienteDiv.innerHTML = `<p>${dados.mensagem}</p>`;
-    } else {
-        dadosClienteDiv.innerHTML = `
-            <p>ID: ${dados.id}</p>
-            <p>Nome: ${dados.nome}</p>
-            <p>Email: ${dados.email}</p>
-            <p>Idade: ${dados.idade}</p>
-        `;
-    }
-}
-
-// Função para cadastrar um novo cliente (POST)
+// Função para cadastrar cliente (POST)
 async function cadastrarCliente(event) {
-  event.preventDefault();
+    event.preventDefault();
+    const nome = document.getElementById('nome').value;
+    const email = document.getElementById('email').value;
+    const idade = document.getElementById('idade').value;
 
-  const nome = document.getElementById('nome').value;
-  const email = document.getElementById('email').value;
-  const idade = document.getElementById('idade').value;
+    const response = await fetch(`${apiUrl}/clientes`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome, email, idade })
+    });
 
-  try {
-      const response = await fetch('http://localhost:3000/clientes', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ nome, email, idade: parseInt(idade) })
-      });
-
-      const resultado = await response.json();
-
-      if (response.ok) {
-          mostrarResultadoCadastro(`Cliente cadastrado com sucesso! ID: ${resultado.id}`);
-      } else {
-          mostrarResultadoCadastro(resultado.mensagem || 'Erro ao cadastrar cliente');
-      }
-  } catch (error) {
-      console.error('Erro ao cadastrar cliente:', error);
-      mostrarResultadoCadastro('Erro ao cadastrar cliente');
-  }
+    const result = await response.json();
+    document.getElementById('resultadoCadastro').textContent = JSON.stringify(result);
 }
 
-// Função para exibir o resultado do cadastro
-function mostrarResultadoCadastro(mensagem) {
-  const resultadoCadastroDiv = document.getElementById('resultadoCadastro');
-  resultadoCadastroDiv.innerHTML = `<p>${mensagem}</p>`;
+// Função para consultar cliente (GET)
+async function consultarCliente(event) {
+    event.preventDefault(); // Evitar o comportamento padrão do formulário
+    const id = document.getElementById('idConsulta').value; // Pegar o ID do cliente
+
+    const response = await fetch(`${apiUrl}/clientes/${id}`); // Consultar o cliente pelo ID
+    const cliente = await response.json(); // Extrair o JSON da resposta
+    // Exibir os dados do cliente na página
+    document.getElementById('dadosCliente').textContent = JSON.stringify(cliente);
+
+    // Preencher os campos do formulário de atualização
+    document.getElementById('nomeAtualizar').value = cliente.nome;
+    document.getElementById('emailAtualizar').value = cliente.email;
+    document.getElementById('idadeAtualizar').value = cliente.idade;
+}
+
+// Função para Atualizar cliente (PUT)
+async function atualizarCliente(event) {
+    event.preventDefault();
+    const id = document.getElementById('idConsulta').value;
+    const nome = document.getElementById('nomeAtualizar').value;
+    const email = document.getElementById('emailAtualizar').value;
+    const idade = document.getElementById('idadeAtualizar').value;
+
+    const response = await fetch(`${apiUrl}/clientes/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome, email, idade })
+    });
+
+    const result = await response.json();
+    document.getElementById('dadosCliente').textContent = JSON.stringify(result);
+}
+
+// Função para deletar cliente (DELETE)
+async function deletarCliente() {
+    const id = document.getElementById('idConsulta').value;
+
+    const response = await fetch(`${apiUrl}/clientes/${id}`, {
+        method: 'DELETE'
+    });
+
+    const result = await response.json();
+    document.getElementById('dadosCliente').textContent = result.mensagem;
 }

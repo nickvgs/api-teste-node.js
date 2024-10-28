@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulário de Clientes</title>
-    <script src="script2.js" defer></script>
+    <script src="script.js" defer></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,6 +15,7 @@
         <div class="form-col">
             <h2>Cadastrar Novo Cliente</h2>
             <form id="formCadastro" onsubmit="cadastrarCliente(event)">
+                
                 <label for="nome">Nome:</label>
                 <input type="text" id="nome" required>
 
@@ -31,16 +32,16 @@
 
         <!-- Coluna para o formulário de Consultar, Atualizar e Deletar Cliente -->
         <div class="form-col">
-            <h2>Consultar, Atualizar e Deletar Cliente</h2>
-            <form id="formConsulta" onsubmit="consultarCliente(event)">
+            <h2>Consultar e Deletar Cliente</h2>
+            
+            <form id="formConsulta">
                 <label for="idConsulta">ID do Cliente:</label>
                 <input type="number" id="idConsulta" required>
-                <button type="submit">Consultar Cliente</button>
-                <button type="button" onclick="deletarCliente()">Deletar Cliente</button>
             </form>
 
-            <form id="formAtualizar" onsubmit="atualizarCliente(event)">
-                <h3>Atualizar Cliente</h3>
+            <form id="formAtualizar">
+                <h2>Atualizar Cliente</h2>
+
                 <label for="nomeAtualizar">Nome:</label>
                 <input type="text" id="nomeAtualizar">
 
@@ -50,7 +51,10 @@
                 <label for="idadeAtualizar">Idade:</label>
                 <input type="number" id="idadeAtualizar">
 
-                <button type="submit">Atualizar Cliente</button>
+                <button type="button" onclick="consultarCliente(event)">Consultar </button>
+                <button type="button" onclick="atualizarCliente(event)">Atualizar </button>
+                <button type="button" onclick="deletarCliente(event)">Deletar </button>
+                
             </form>
         </div>
         <!-- Coluna Coluna de retorno em JSON -->
