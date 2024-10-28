@@ -1,0 +1,43 @@
+/* Estilo geral da página */
+body { 
+    font-family: Arial, sans-serif; 
+    margin: 20px; 
+}
+
+/* Contêiner principal para as colunas */
+.container {
+    display: flex;
+    gap: 20px;
+}
+
+/* Estilo das colunas de formulário */
+.form-col {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+/* Estilos dos formulários */
+form {
+    margin-bottom: 20px;
+}
+
+input {
+    display: block;
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+label {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+button {
+    padding: 8px 16px;
+    cursor: pointer;
+}

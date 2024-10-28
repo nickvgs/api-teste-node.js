@@ -1,13 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Connection</title>
+    <title>Formulário de Clientes</title>
+    <script src="script.js" defer></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        input { display: block; margin-bottom: 10px; }
+        label { margin-top: 10px; }
+    </style>
 </head>
 <body>
-    <h1>API Connection Example</h1>
-    <div id="api-response"></div>
-    <script src="script.js"></script>
+    <h1>Formulário de Clientes</h1>
+    
+    <!-- Novo formulário para criar cliente -->
+    <h2>Cadastrar Novo Cliente</h2>
+    <form id="formCadastro" onsubmit="cadastrarCliente(event)">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
+
+        <label for="idade">Idade:</label>
+        <input type="number" id="idade" required>
+
+        <button type="submit">Cadastrar Cliente</button>
+    </form>
+
+    <h3>Resultado do Cadastro</h3>
+    <div id="resultadoCadastro"></div>
+
+    <!-- Novo formulário para consultar cliente -->
+    <h2>Consultar Cliente</h2>
+    <form id="formConsulta" onsubmit="consultarCliente(event)">
+        <label for="idConsulta">ID do Cliente:</label>
+        <input type="number" id="idConsulta" required>
+        <button type="submit">Consultar Cliente</button>
+    </form>
+
+        <h3>Dados do Cliente</h3>
+    <div id="dadosCliente"></div>
+
+    
 </body>
 </html>
