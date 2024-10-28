@@ -4,39 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulário de Clientes</title>
-    <script src="script.js" defer></script>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        input { display: block; margin-bottom: 10px; }
-        label { margin-top: 10px; }
-    </style>
+    <script src="script2.js" defer></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>Formulário de Clientes</h1>
     
-    <h2>Criar Novo Cliente</h2>
-    <form id="formCliente">
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" required>
+    <div class="container">
+        <!-- Coluna para o formulário de Cadastrar Cliente -->
+        <div class="form-col">
+            <h2>Cadastrar Novo Cliente</h2>
+            <form id="formCadastro" onsubmit="cadastrarCliente(event)">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" required>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" required>
 
-        <label for="idade">Idade:</label>
-        <input type="number" id="idade" required>
+                <label for="idade">Idade:</label>
+                <input type="number" id="idade" required>
 
-        <button type="submit">Criar Cliente</button>
-    </form>
+                <button type="submit">Cadastrar Cliente</button>
+            </form>
+          
+        </div>
 
-    <h2>Consultar Cliente</h2>
-    <form id="formConsulta">
-        <label for="idConsulta">ID do Cliente:</label>
-        <input type="number" id="idConsulta" required>
+        <!-- Coluna para o formulário de Consultar, Atualizar e Deletar Cliente -->
+        <div class="form-col">
+            <h2>Consultar, Atualizar e Deletar Cliente</h2>
+            <form id="formConsulta" onsubmit="consultarCliente(event)">
+                <label for="idConsulta">ID do Cliente:</label>
+                <input type="number" id="idConsulta" required>
+                <button type="submit">Consultar Cliente</button>
+                <button type="button" onclick="deletarCliente()">Deletar Cliente</button>
+            </form>
 
-        <button type="submit">Consultar Cliente</button>
-    </form>
+            <form id="formAtualizar" onsubmit="atualizarCliente(event)">
+                <h3>Atualizar Cliente</h3>
+                <label for="nomeAtualizar">Nome:</label>
+                <input type="text" id="nomeAtualizar">
 
-    <h3>Dados do Cliente</h3>
-    <div id="dadosCliente"></div>
+                <label for="emailAtualizar">Email:</label>
+                <input type="email" id="emailAtualizar">
+
+                <label for="idadeAtualizar">Idade:</label>
+                <input type="number" id="idadeAtualizar">
+
+                <button type="submit">Atualizar Cliente</button>
+            </form>
+        </div>
+
+        <div class="form-col">
+            <h3>Dados do Cliente JSON </h3>
+            <h3>Log de Consulta, Atualização e Delete</h3>
+            <div id="dadosCliente"></div>
+            <h3>Log de Cadastro</h3>
+            <div id="resultadoCadastro"></div>
+        </div>
+    </div>
 </body>
-</html>
+</html>s

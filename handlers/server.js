@@ -5,27 +5,16 @@ const app = express();
 
 app.use(cors()); // Ativa o CORS para todas as rotas
 
+// Middleware para permitir que o express entenda requisições com JSON no corpo
+app.use(express.json()); 
 
-//aqui declaramos uma variável que contem o módulo express, 
-// que estamos pegando na pasta node_modules
 
-
+// Rota inicial
 app.get('/', function (req, res) {
     res.send('Hello World!');
 });
 
-app.get('/produtos', function (req, res) {
-    res.send('Hello World produtos!');
-});
-
-// Faz a leitura de um arquivo json chamado dados.json
-// o arquivo esta uma pastan acima, por isso usamos ../
-// dentro da pasta database com o nome dados.json
-
-// const fs = require('fs');
-// const dados = fs.readFileSync('../database/dados.json', 'utf8');
-
-
+// Array de clientes
 let clientes = [
     { id: 1, nome: 'João Silva', email: 'joao@example.com', idade: 30 },
     { id: 2, nome: 'Maria Oliveira', email: 'maria@example.com', idade: 25 },
@@ -45,9 +34,6 @@ app.get('/clientes/:id', (req, res) => {
   }
 });
 
-
-// Middleware para permitir que o express entenda requisições com JSON no corpo
-app.use(express.json());
 
 // Endpoint para criar um novo cliente (POST)
 app.post('/clientes', (req, res) => {
@@ -76,8 +62,43 @@ app.post('/clientes', (req, res) => {
       res.status(201).json(novoCliente);
 });
 
+// Endpoint para atualizar um cliente existente (PUT)
+
+
+app.put('/clientes/:id', (req, res) => {
+  const clienteId = parseInt(req.params.id);
+  const { nome, email, idade } = req.body;
+  const clienteIndex = clientes.findIndex(c => c.id === clienteId);
+  if (clienteIndex !== -1) {
+      clientes[clienteIndex] = { id: clienteId, nome, email, idade };
+      res.status(200).json(clientes[clienteIndex]);
+  } else {
+      res.status(404).json({ mensagem: 'Cliente não encontrado' });
+  }
+});
+
+// End point para deletar um cliente (DELETE)
+
+app.delete('/clientes/:id', (req, res) => {
+  const clienteId = parseInt(req.params.id);
+  const clienteIndex = clientes.findIndex(c => c.id === clienteId);
+  if (clienteIndex !== -1) {
+    const clienteRemovido = clientes.splice(clienteIndex, 1);
+    res.status(200).json({ mensagem: 'Cliente removido com sucesso', cliente: clienteRemovido[0] });
+  } else {
+    res.status(404).json({ mensagem: 'Cliente não encontrado' });
+  }
+});
+
+
+
+
+
+
+
 app.listen(3000, function() {
-    console.log('Example app listening on port 3000!');
+    console.log('Servidor rodando na porta 3000');
 });
 // listen inicia um servidor, e colocamos ele para escutar a porta 3000.
-// Ele responde com "Hello World!"
+
+
