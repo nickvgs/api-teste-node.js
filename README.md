@@ -1,6 +1,9 @@
 # Introdução
 
-O projeto consistem em uma API criada em Node.js e um Front End Básico com um Formulário para realizar  
+O projeto consiste em uma API criada em Node.js e um FrontEnd Básico com um Formulário para realizar os testes 
+das operações `GET`, `POST`, `PUT` e `DELETE`.
+
+O projeto possui a abstração de cadastro de clientes, onde é possível cadastra-los com os atributos `NOME`, `EMAIL` e `IDADE`, e realizar a Consulta, Atualização e Remoção apartir do `ID` do cliente.
 
 ## Procedimento para Executar
 ### 1. Versão do Node.js
